@@ -1,0 +1,38 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+<article>
+  <div class="container-article">
+    <img src="{{ post.user.profile.image.url }}">
+    <div>
+      <a href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a>
+      {% if post.user == request.user %}
+        <a href="{% url 'delete_post' post.id %}" style="float: right;margin-right: 300px;">Eliminar post</a>
+        <a href="{% url 'edit_post' post.id %}" style="float: right;">Editar post</a>
+      {% endif %}
+      <i class="clock"></i>
+      <time data-time="#">{{ post.timestamp|naturaltime }}</time>
+      <h2>{{ post.post_title }}</h2>
+      {% if post.picture %}
+        <img src="{{ post.picture.url }}" alt="Imagen del post" style="border-radius: 0%; width: 300px; height: 200px;">
+      {% endif %}
+      <div class="post">{{ post.content }}</div>
+      <br>
+      <div>
+        {% with likes=post.likes.all %}
+          <p>{{ likes|length }} {% if likes|length == 1 %}persona{% else %}personas{% endif %} les gusta esto</p>
+          {% for like in likes %}
+            <img src="{{ like.profile.image.url }}" alt="{{ like.username }}">
+          {% endfor %}
+        {% endwith %}
+      </div>
+      {% if request.user != post.user %}
+        <form method="post" action="{% url 'like_post' post.id %}">
+          {% csrf_token %}
+          <button type="submit">Me gusta</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</article>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'social/feed.html' %}
+{% block content %}
+
+<!-- Profile -->
+<div class="profile">
+	<img src="{{user.profile.image.url}}">
+	<h2>@{{user.username}}</h2>
+</div>
+
+<!-- Following -->
+<div style="margin-left: 20px;">
+	<h5>Artistas en los que estas interesado</h5>
+</div>
+<div class="follow">
+	{% for following in following %}
+        <div class="following-container">
+            <div class="following" style="display: flex; align-items: center;">
+                <img src="{{following.profile.image.url}}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                <div>
+                    <a href="{% url 'profile' following.username %}">@{{following.username}}</a>
+                </div>
+            </div>
+        </div>
+	{% endfor %}
+</div>
+
+{{ block.super }}
+{% endblock %}

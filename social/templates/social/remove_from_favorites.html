@@ -1,0 +1,34 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+<div class="title">
+    <h1>Eliminar de favoritos</h1>
+</div>
+
+<!-- Botón para abrir la modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+    Eliminar de mis favoritos
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que quieres eliminar este post de tus favoritos?
+            </div>
+            <div class="modal-footer">
+                <form method="POST" action="{% url 'remove_from_favorites' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+<br><br>
+<div style="text-align: center;">
+    <h1>Editar Perfil</h1>
+</div>
+<form method="post" enctype="multipart/form-data" onsubmit="return confirm('¿Estás seguro de guardar los cambios?');">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    <label for="id_image">Imagen de Perfil</label>
+    <input type="file" name="image" accept="image/*">
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+{% endblock %}

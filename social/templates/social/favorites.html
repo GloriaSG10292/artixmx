@@ -1,0 +1,49 @@
+{% extends 'social/layout.html' %}
+{% load humanize %}
+
+{% block content %}
+<br><br>
+<h1 style="text-align: center;">Mis descubrimientos</h1>
+
+{% if request.user.profile.favorites.all %}
+  {% for post in favorites %}
+    {% if post in request.user.profile.favorites.all %}
+      <article>
+        <div class="container-article">
+          <img src="{{post.user.profile.image.url}}">
+          <div>
+            <a href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a>
+            <i class="clock"></i>
+            <time data-time="#">{{post.timestamp|naturaltime}}</time>
+            <h1>{{ post.post_title }}</h1>
+            {% if post.picture %}
+              <img src="{{ post.picture.url }}" alt="Imagen del post" style="border-radius: 0%; width: 700px; height: 500px;">
+            {% endif %}
+            <div class="post">Resumen: {{post.key_result}}</div>
+            <details>
+              <summary class="toggle-content">Detalle de la obra</summary>
+              <div class="content">
+                {{ post.content }}
+              </div>
+            </details>
+            <br>
+            <div style="text-align: center;">
+              <form method="post" action="{% url 'unlike_post_m' post.id %}">
+                {% csrf_token %}
+                <button type="submit" class="add-remove-button">
+                  <i class="fas fa-trash"></i> Eliminar de mis descubrimientos
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endif %}
+  {% endfor %}
+{% else %}
+  <div style="text-align: center">
+    <p>Aún no has agregado nada a tus descubrimientos.</p>
+  </div>
+{% endif %}
+
+{% endblock %}

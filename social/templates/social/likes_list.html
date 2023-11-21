@@ -1,0 +1,22 @@
+{% extends 'social/layout.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'social/css/style.css' %}">
+  <br><br>
+  <h1 style="text-align: center;">Admiradores que han mostrado aprecio en esta obra</h1>
+<br>
+  <div class="profile-grid"  style="margin-left: 15px;">
+    {% if likes %}
+      {% for like in likes %}
+        <div>
+          <img class="img.profile" src="{{ like.profile.image.url }}" alt="{{ like.username }}" style="border-radius: 50%; width: 50px; height: 50px; margin-left: 10px;vertical-align: middle">
+          <a href="{% url 'profile' like.username %}" style="vertical-align: middle;">@{{ like.username }}</a>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">Esta obra aún no cuenta con Artix Lovers.</p>
+    {% endif %}
+  </div>
+{% endblock %}

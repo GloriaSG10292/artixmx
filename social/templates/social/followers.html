@@ -1,0 +1,28 @@
+{% extends 'social/layout.html' %}
+{% block content %}
+
+<!-- Profile -->
+<div class="profile">
+    <img src="{{ user.profile.image.url }}">
+    <h2>@{{ user.username }}</h2>
+</div>
+
+<!-- Followers -->
+<h5 style="margin-left: 20px;">Sponsors Interesados</h5>
+<div class="follow">
+    {% if not followers %}
+        <p>Aún no hay sponsors interesados</p>
+    {% else %}
+        {% for follower in followers %}
+            <div class="follower" style="display: flex; align-items: center;">
+                <img src="{{follower.profile.image.url}}" style="border-radius: 50%; width: 50px; height: 50px; margin-right: 10px;">
+                <div>
+                    <a href="{% url 'profile' follower.username %}">@{{follower.username}}</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+{{ block.super }}
+{% endblock %}

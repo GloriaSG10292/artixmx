@@ -1,0 +1,75 @@
+
+{% extends 'social/layout.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+
+  {% for post in posts %}
+    <h1 class="titulo" style="text-align: center;">Obras publicadas recientemente</h1>
+    <article>
+      <div class="container-article">
+        <img src="{{post.user.profile.image.url}}">
+        <div>
+          <a href="{% url 'profile' post.user.username %}">@{{ post.user.username }}</a>
+          <i class="clock"></i>
+          <time data-time="#">{{post.timestamp|naturaltime}}</time>
+          
+          {% if post.user == request.user %}
+            <a href="{% url 'delete_post' post.id %}" style="float: right; margin-left: 30px; color: #EF63A9;">Eliminar Obra</a>
+            <a href="{% url 'edit_post' post.id %}" style="float: right; margin-left: 230px; color: #EF63A9;">Editar Obra</a>
+          
+          {% endif %}
+          
+          <h1>{{ post.post_title }}</h1>
+          {% if post.picture %}
+            <img src="{{ post.picture.url }}" alt="Imagen del post" style="border-radius: 0%; width: 700px; height: 500px;">
+          {% endif %}
+          <br><br>
+          <div class="post">Resumen: {{post.key_result}}</div>
+          <details>
+            <summary class="toggle-content">Detalle de la obra</summary>
+            <div class="content">
+              {{ post.content }}
+            </div>
+
+          </details>
+            <div style="text-align: center;">
+            {% if request.user.extendeddata.user_type == 'S' %}
+              {% if request.user != post.user %}
+                {% if post.user_liked %}
+                  <form method="post" action="{% url 'unlike_post' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="add-remove-button">
+                      <i class="fas fa-trash"></i> Eliminar de mis descubrimientos
+                    </button>
+                  </form>
+                {% else %}
+                  <form method="post" action="{% url 'like_post' post.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="add-remove-button">
+                      <i class="fas fa-heart"></i> Agregar a mis descubrimientos
+                    </button>
+                  </form>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            
+            
+            {% with likes=post.likes.all %}
+            <p>
+              <a href="{% url 'likes_list' post.id %}">
+                <i class="fas fa-heart" style="font-size: 16px; color: #EF63A9; vertical-align: middle; margin-top: -2px;"></i> 
+                <span style="vertical-align: middle; margin-top: -2px;">{{ likes|length }} {% if likes|length == 1 %}Artix{% else %}Artix{% endif %} Lover</span> 
+              </a>
+            </p>
+            {% endwith %}
+          
+          
+          
+          
+        </div>
+      </div>
+    </article>
+  {% endfor %}
+{% endblock %}

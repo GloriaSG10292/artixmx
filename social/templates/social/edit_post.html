@@ -1,0 +1,13 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+  <div class="text-align: center;">
+    <h2 style="text-align: center;">Editar Post</h2>
+    <form method="post" enctype="multipart/form-data" class="mx-auto">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" name="save_changes" class="btn btn-primary" onclick="return confirm('¿Estás seguro de que deseas guardar los cambios?')">Guardar Cambios</button>
+      <a href="{% url 'feed' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

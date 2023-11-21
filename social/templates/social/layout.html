@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>ARTIX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'logoh.png' %}">
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+<header class="main-head">
+    <nav class="main">
+        <a class="feed" href="{% url 'feed' %}">
+            <img class="icon" src="{% static 'A.png' %}" alt="Inicio" style="max-width: 100px; max-height: 100px;">
+
+
+        </a>
+        
+        <ul>
+            		
+            {% if request.user.is_authenticated %}
+                <li>
+                    <a style="font-size: 18px;" href="{% url 'profile' request.user.username %}">
+                        <i class="fas fa-user" style="color: #a80557;"></i> Mi Perfil
+                    </a>
+                </li>
+                
+                {% if user.is_authenticated %}
+                    {% if user.extendeddata.user_type == "A" and user.username == request.user.username %}
+                    <a class="new" style="font-size: 18px;" href="{% url 'post' %}">
+                        <i class="fas fa-paint-brush" style="color: #a80557;"></i> Publicar
+                    </a>
+                    {% elif user.extendeddata.user_type == "S" and user.username == request.user.username %}
+                        <a class="new" style="font-size: 18px;" href="{% url 'favorites' %}">
+                            <i class="fas fa-heart" style="color: #a80557;"></i> Mis descubrimientos
+                        </a>
+                    {% endif %}
+                {% endif %}
+                <li>
+                    <a style="font-size: 18px;" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt" style="color: #a80557;"></i> Logout
+                    </a>
+                </li>
+            {% else %}
+                {% if request.path != '/register/' %}
+                    <li>
+                        <a style="font-size: 18px;" href="{% url 'register' %}">
+                            <i class="fas fa-user-plus" style="color: #a80557;"></i> Crear mi cuenta
+                        </a>
+                    </li>
+                {% endif %}
+                {% if request.path != '/login/' %}
+                    <li>
+                        <a style="font-size: 18px;" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt" style="color: #a80557;"></i> Login
+                        </a>
+                    </li>
+                {% endif %}
+            {% endif %}
+    
+        </ul>
+    </nav>
+</header>
+
+{% if messages %}
+{% for message in messages %}
+    <div class="notification">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
+
+<div class="main">
+    <nav class="second-nav">
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+</div>
+
+<!-- bot section -->
+<button class="open-button" onclick=openForm()>
+    <img src="{% static 'BOT.png' %}" alt="Botón de Chat">
+</button>
+
+<div class="chat-popup" id="chatbotpanel">
+    <form class="form-chatbot" > 
+        <iframe src='https://webchat.botframework.com/embed/lenguajedscrscl-bot?s=KxCXLUdYN6I.wF6ghY7vEYDuuTQZyNJA3BEfOJmWc1ac2BVbTnGW6PY'  style='min-width: 400px; width: 100%; min-height: 500px;'></iframe>
+        <button type="button" class="btn_cancel" onclick=closeForm()>
+            <img src="{% static 'BOT.png' %}" alt="Botón de Chat">
+        </button>
+    </form>
+</div>
+<!-- end bot section -->
+
+<footer>
+    <div class="row">
+        <p>ARTIX<br>Realizado por: Gloria & Romy</p>
+    </div>
+</footer>
+
+<!-- BotScript files-->
+<script>
+    function openForm() {
+    document.getElementById("chatbotpanel").style.display = "block";
+    }
+    
+    function closeForm() {
+    document.getElementById("chatbotpanel").style.display = "none";
+    }
+
+</script>
+
+</body>
+</html>

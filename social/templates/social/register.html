@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artix</title>
+    <link rel="shortcut icon" href="{% static 'logoh.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style2.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="('https://fonts.googleapis.com/css?family=Montserrat:400,800');">
+
+</head>
+
+<body>
+
+
+    <main>
+
+
+        <div class="form-container sign-in-container">
+                
+                <form class="form" method="post">
+                    <h1>Registrate a <img src="{% static 'ASL.png' %}" alt="Artix" style="vertical-align: middle; width: 150px;"> </h1>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {{ profile_form.as_p }}
+                    <button type="submit"  id="signUpButton">Unete a la comunidad artística</button>
+                </form>
+        </div>
+        <div class="overlay-panel overlay-right">
+            <h1>Ya estas registrado a Artix!</h1>
+            <p>Ingresa para encontrar nuevo arte</p>
+            <button class="ghost" id="signUp" onclick="redirectLogin()">Entra en el arte</button>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success' %}
+                    <div class="success-message">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </main>
+    <script>
+
+const container = document.getElementById('container');
+const signUpButton = document.getElementById('signUpButton');
+const signInButton = document.getElementById('signInButton');
+
+signUpButton.addEventListener('click', () => {
+    container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+    container.classList.remove("right-panel-active");
+});
+
+function redirectLogin() {
+    window.location.href = "{% url 'login' %}";
+}
+            </script>
+
+
+</body>
+</html>

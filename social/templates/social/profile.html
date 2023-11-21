@@ -1,0 +1,77 @@
+{% extends 'social/feed.html' %}
+
+{% block content %}
+<br><br>
+<nav class="second-nav">
+    <!--{% if user.is_authenticated %}
+        {% if user.extendeddata.user_type == "A" and user.username == request.user.username %}
+            <a class="new" href="{% url 'post' %}">Publicar nueva obra</a>
+        {% elif user.extendeddata.user_type == "S" and user.username == request.user.username %}
+            <a class="new" href="{% url 'favorites' %}">Mis descubrimientos</a>
+        {% endif %}
+    {% endif %}-->
+</nav>
+
+<!-- Profile -->
+<div class="profile">
+    <img src="{{ user.profile.image.url }}">
+    <h2>@{{ user.username }}</h2>
+    <p>{{ user.email }}</p>
+
+    {% if user.profile.description %}
+        <div style="margin: 0 auto; max-width: 600px; text-align: center;">
+            <p>{{ user.profile.description }}</p>
+        </div>
+    {% endif %}
+
+    {% if user.extendeddata.user_type == "A" %}
+        <p>¡Haz que tu arte se haga notar!</p>
+    {% else %}
+        <p>¡Conoce a nuestros artistas ARTIX!</p>
+    {% endif %}
+
+    {% if request.user.is_authenticated %}
+        {% if user.username != request.user.username %}
+            {% if user not in request.user.profile.get_following %}
+                {% if request.user.extendeddata.user_type == "S" %}
+                    <button><a class="follow-button" href="{% url 'follow' user %}">Quiero ser tu sponsor</a></button>
+                {% endif %}
+            {% else %}
+                <button><a class="follow-button" href="{% url 'unfollow' user %}">Dejar de seguir</a></button>
+            {% endif %}
+        {% endif %}
+
+        {% if user.username == request.user.username %}
+            <form action="{% url 'edit_profile' %}" method="get">
+                <button type="submit">Editar Perfil</button>
+            </form>
+        {% endif %}
+    {% endif %}
+</div>
+
+<!-- Follow items -->
+<div class="follow" style="display: flex; justify-content: space-around;">
+    {% if user.extendeddata.user_type != "S" %}
+        <div style="margin-right: 30px;">
+            <h5>Creations</h5>
+            <p>{{ user.posts.count }}</p>
+        </div>
+    {% endif %}
+    {% if user.extendeddata.user_type == "A" %}
+    <div>
+        <h5><a href="{% url 'followers' user.username %}">Sponsors Interesados</a></h5>
+        <p>{{ user.profile.get_followers.count }}</p>
+    </div>
+    {% endif %}
+    {% if user.extendeddata.user_type == "S" %}
+        <div>
+            <h5><a href="{% url 'following' user.username %}">Art Connections</a></h5>
+
+            <p>{{ user.profile.get_following.count }}</p>
+        </div>
+    {% endif %}
+</div>
+
+{{ block.super }}
+{% endblock %}
+

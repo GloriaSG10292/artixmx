@@ -1,0 +1,10 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+    <h1>Notificaciones</h1>
+    <ul>
+        {% for notification in notifications %}
+            <li>{{ notification }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

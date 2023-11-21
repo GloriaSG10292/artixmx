@@ -1,0 +1,26 @@
+{% extends 'social/layout.html' %}
+
+{% block content %}
+  <style>
+    .button-container {
+      text-align: center;
+    }
+    .button-container button,
+    .button-container a {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  </style>
+
+  <div class="text-center">
+    <form method="POST" class="mx-auto">
+      {% csrf_token %}
+      <p style="text-align: center;">¿Estás seguro de que quieres eliminar este post?</p>
+      <br><br>
+      <div class="button-container">
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'feed' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
