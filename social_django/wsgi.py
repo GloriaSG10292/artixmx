@@ -10,7 +10,8 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+settings_module = 'social_django.production' if 'WEBSITE_HOSTNAME' in os.environ else 'social_django.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'social_django.settings')
 
 application = get_wsgi_application()
