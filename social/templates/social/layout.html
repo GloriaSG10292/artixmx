@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>ARTIX</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="{% static 'logoh.png' %}">
     <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="{% static 'normalize.css' %}">
@@ -68,19 +68,25 @@
 
 {% if messages %}
 {% for message in messages %}
-    <div class="notification">
+    <div class="notification {% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% endif %}">
         {{ message }}
     </div>
 {% endfor %}
 {% endif %}
 
+<body>
+    
+</body>
+
 <div class="main">
     <nav class="second-nav">
     </nav>
-
+    
     {% block content %}
     {% endblock content %}
 </div>
+
+
 
 <!-- bot section -->
 <button class="open-button" onclick=openForm()>

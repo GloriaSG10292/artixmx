@@ -109,27 +109,27 @@ def password_reset_request(request):
         form = SecurityQuestionForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = User.objects.get(username=data['username'])
-            extended_data = ExtendedData.objects.get(user=user)
+            try:
+                user = User.objects.get(username=data['username'])
+                extended_data = ExtendedData.objects.get(user=user)
 
-            pregunta_seguridad = next((choice[1] for choice in ExtendedData.SECURITY_QUESTION_CHOICES if choice[0] == extended_data.pregunta_seguridad), None)
+                pregunta_seguridad = next((choice[1] for choice in ExtendedData.SECURITY_QUESTION_CHOICES if choice[0] == extended_data.pregunta_seguridad), None)
 
-            if 'respuesta_seguridad' in data and data['respuesta_seguridad']:
-                check_security_answer = True
-                if data['respuesta_seguridad'] == extended_data.respuesta_seguridad:
-                    # Si la respuesta es correcta, redirige al usuario a la página de cambio de contraseña
-                    return redirect('password_reset_form')
-                else:
-                    messages.error(request, 'La respuesta de seguridad es incorrecta.')
+                if 'respuesta_seguridad' in data and data['respuesta_seguridad']:
+                    check_security_answer = True
+                    if data['respuesta_seguridad'] == extended_data.respuesta_seguridad:
+                        # Si la respuesta es correcta, redirige al usuario a la página de cambio de contraseña
+                        return redirect('password_reset_form')
+                    else:
+                        messages.error(request, 'La respuesta de seguridad es incorrecta.')
 
-            return render(request, 'social/password_reset.html', {'form': form, 'show_security_questions': True, 'pregunta_seguridad': pregunta_seguridad, 'check_security_answer': check_security_answer})
+                return render(request, 'social/password_reset.html', {'form': form, 'show_security_questions': True, 'pregunta_seguridad': pregunta_seguridad, 'check_security_answer': check_security_answer})
+            except User.DoesNotExist:
+                messages.error(request, 'El usuario no existe, ingresa un usuario válido')
     else:
         form = SecurityQuestionForm()
 
     return render(request, 'social/password_reset.html', {'form': form, 'show_security_questions': False})
-
-
-
 
 
 def password_reset_form(request):
@@ -137,11 +137,14 @@ def password_reset_form(request):
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = User.objects.get(username=data['username'])
-            user.set_password(data['new_password'])
-            user.save()
-            messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
-            return redirect('login')
+            try:
+                user = User.objects.get(username=data['username'])
+                user.set_password(data['new_password'])
+                user.save()
+                messages.success(request, 'La contraseña ha sido cambiada exitosamente.')
+                return redirect('login')
+            except User.DoesNotExist:
+                messages.error(request, 'El usuario no existe, ingresa un usuario válido')
     else:
         form = PasswordResetForm()
     return render(request, 'social/password_reset_form.html', {'form': form})
