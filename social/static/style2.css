@@ -9,11 +9,17 @@
     text-align: center;
     padding: 10px 20px;
     border-radius: 4px;
-    color: #fff;
+    color: #f8f8f8;
     font-size: 0.9rem;
-    background:#2ECC71;
-}
- 
+    background-color: #b2e0ef; /* Añade el color de fondo azul que desees aquí */
+  }
+  
+  
+  
+  
+  
+  
+  
 .success {
 background: #43DC7E;
 color: rgb(0, 0, 0);
@@ -41,8 +47,8 @@ margin-bottom: 20px;
     body {
         background: #f6f5f7;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: left;
+        align-items: left;
         flex-direction: column;
         font-family: 'Montserrat', sans-serif;
         height: 100vh;
@@ -90,36 +96,39 @@ margin-bottom: 20px;
 
 }
 
-    
-    button:active {
-        transform: scale(0.95);
-    }
-    
-    button:focus {
-        outline: none;
-    }
-    
-    button.ghost {
-        background-color: transparent;
-        border-color: #FFFFFF;
-    }
-    
 
+    
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: transparent;
+    border-color: #FFFFFF;
+    padding: 8px 9px; 
+    width: 200px;
+    margin: 0 auto;
+}
     form {
         background-color: #FFFFFF;
         display: flex;
         align-items: left;
-        justify-content: center;
+        justify-content: left;
         flex-direction: column;
-        padding: 150px;
-        min-height:fit-content;
+        padding: 20px 150px;
+        height: 100%;
         text-align: left;
-        margin: 0px;
+        margin: 0 auto;
         font-size: 18px; 
+        
     }
 
 .form input {
-    max-block-size:  100px; /* o ajusta según sea necesario */
+    max-width: 100%; /* o ajusta según sea necesario */
     /* Otros estilos... */
 }
     input {
@@ -138,33 +147,29 @@ margin-bottom: 20px;
         position: relative;
         overflow: hidden;
         width: 768px;
-        max-width: 100%;
-        min-height: 480px;
-        height: 100vh; /* Asegura que el contenedor principal ocupe el 100% de la ventana gráfica */
+        height: 100%;
     }
     
     .form-container,
     .overlay-panel {
-        height:min-content;/* Establece la altura de los paneles al 100% */
+        overflow: hidden;
+        
     }
     .form-container {
         position: absolute;
         top: 0;
-        height:min-content;
         transition: all 0.6s ease-in-out;
+        width: 50%;
     }
     
     .sign-in-container {
         left: 0;
         width: 50%;
         z-index: 2;
-        margin-top: 0%;
-        margin-bottom: 0%;
+        overflow: hidden;
     }
     
-    .container.right-panel-active .sign-in-container {
-        transform: translateX(100%);
-    }
+    
     
     .sign-up-container {
         left: 0;
@@ -212,6 +217,7 @@ margin-bottom: 20px;
         overflow: hidden;
         transition: transform 0.6s ease-in-out;
         z-index: 100;
+        
     }
     
     .container.right-panel-active .overlay-container{
@@ -241,7 +247,7 @@ margin-bottom: 20px;
     .overlay-panel {
         position: absolute;
         display: flex;
-        align-items: center;
+        align-items: left;
         justify-content: center;
         flex-direction: column;
         padding: 0 40px;
@@ -249,8 +255,7 @@ margin-bottom: 20px;
         top: 0;
         height: 100%;
         width: 50%;
-        transform: translateX(0);
-        transition: transform 0.6s ease-in-out;
+;
     }
     
     .overlay-left {
@@ -268,6 +273,7 @@ margin-bottom: 20px;
         background: #eea6b7;
         background: -webkit-linear-gradient(to right, #f12bff, #FF416C);
         background: linear-gradient(to right, #2b80ff, #d72c54);
+        position: fixed;
     }
     
     .container.right-panel-active .overlay-right {
@@ -289,27 +295,35 @@ margin-bottom: 20px;
         width: 40px;
     }
     
-    footer {
-        background-color: #222;
-        color: #fff;
-        font-size: 14px;
-        bottom: 0;
+
+
+
+    
+
+    .form h1 {
+        margin-top: 100px; 
+    }
+    
+
+
+    .fixed-header {
         position: fixed;
+        top: 0;
         left: 0;
-        right: 0;
-        text-align: center;
+        width: 100%;
+        background-color: #fff;
         z-index: 999;
+        padding: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
     
-    footer p {
-        margin: 10px 0;
+    .fixed-header .header-title {
+        text-align: center;
+        margin: 0; /* Asegúrate de restablecer el margen por defecto */
     }
     
-    footer i {
-        color: red;
+    .form-container-wrapper {
+        padding-top: 70px; /* Ajusta según sea necesario para dar espacio al encabezado fijo */
     }
     
-
-
     
-
