@@ -9,17 +9,11 @@
     text-align: center;
     padding: 10px 20px;
     border-radius: 4px;
-    color: #f8f8f8;
+    color: #fff;
     font-size: 0.9rem;
-    background-color: #b2e0ef; /* Añade el color de fondo azul que desees aquí */
-  }
-  
-  
-  
-  
-  
-  
-  
+    background:#2ECC71;
+}
+ 
 .success {
 background: #43DC7E;
 color: rgb(0, 0, 0);
@@ -110,21 +104,22 @@ margin-bottom: 20px;
         border-color: #FFFFFF;
     }
     
+
     form {
         background-color: #FFFFFF;
         display: flex;
         align-items: left;
         justify-content: center;
         flex-direction: column;
-        padding: 20px 150px;
-        height: 100%;
+        padding: 150px;
+        min-height:fit-content;
         text-align: left;
-        margin: 0 auto;
+        margin: 0px;
         font-size: 18px; 
     }
 
 .form input {
-    max-width: 100%; /* o ajusta según sea necesario */
+    max-block-size:  100px; /* o ajusta según sea necesario */
     /* Otros estilos... */
 }
     input {
@@ -150,12 +145,12 @@ margin-bottom: 20px;
     
     .form-container,
     .overlay-panel {
-        height: 100%; /* Establece la altura de los paneles al 100% */
+        height:min-content;/* Establece la altura de los paneles al 100% */
     }
     .form-container {
         position: absolute;
         top: 0;
-        height: 100%;
+        height:min-content;
         transition: all 0.6s ease-in-out;
     }
     
@@ -163,6 +158,8 @@ margin-bottom: 20px;
         left: 0;
         width: 50%;
         z-index: 2;
+        margin-top: 0%;
+        margin-bottom: 0%;
     }
     
     .container.right-panel-active .sign-in-container {

@@ -2,11 +2,10 @@
 {% extends 'social/layout.html' %}
 {% load humanize %}
 {% load static %}
-
+<h1><class="titulo" style="text-align: right; margin-left: 350px; margin-bottom: 0; color: rgb(245, 238, 249);">Obras publicadas recientemente</h1>
+<p>hola</p>
 {% block content %}
-
   {% for post in posts %}
-    <h1 class="titulo" style="text-align: center;">Obras publicadas recientemente</h1>
     <article>
       <div class="container-article">
         <img src="{{post.user.profile.image.url}}">
@@ -37,6 +36,7 @@
             <div style="text-align: center;">
             {% if request.user.extendeddata.user_type == 'S' %}
               {% if request.user != post.user %}
+              <div style="text-align: left;">
                 {% if post.user_liked %}
                   <form method="post" action="{% url 'unlike_post' post.id %}">
                     {% csrf_token %}
@@ -52,8 +52,10 @@
                     </button>
                   </form>
                 {% endif %}
+              </div>
               {% endif %}
             {% endif %}
+            </div>
             
             
             {% with likes=post.likes.all %}
@@ -64,10 +66,6 @@
               </a>
             </p>
             {% endwith %}
-          
-          
-          
-          
         </div>
       </div>
     </article>
