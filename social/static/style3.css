@@ -47,8 +47,8 @@ margin-bottom: 20px;
     body {
         background: #f6f5f7;
         display: flex;
-        justify-content: left;
-        align-items: left;
+        justify-content: center;
+        align-items: center;
         flex-direction: column;
         font-family: 'Montserrat', sans-serif;
         height: 100vh;
@@ -89,48 +89,118 @@ margin-bottom: 20px;
     background-color: #c18cdb;
     color: #fff;
     font: bold 12px sans-serif;
-    padding: 12px 45px;
+    padding: 8px 9px; 
+    width: 300px;
+    margin: 0 auto;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;
+  
+    
 
 }
-
 
     
-button:active {
-    transform: scale(0.95);
-}
-
-button:focus {
-    outline: none;
-}
-
+    button:active {
+        transform: scale(0.95);
+    }
+    
+    button:focus {
+        outline: none;
+    }
+    
 button.ghost {
-    background-color: transparent;
-    border-color: #FFFFFF;
-    padding: 8px 9px; 
-    width: 200px;
-    margin: 0 auto;
-}
+        background-color: transparent;
+        border-color: #FFFFFF;
+        padding: 8px 9px; 
+        width: 300px;
+        margin: 0 auto;
+        
+ }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        background: #f6f5f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: 'Montserrat', sans-serif;
+        height: 100vh;
+        margin: 0; /* Cambia el margen a 0 en lugar de -20px */
+    }
+    
+    
+    h1 {
+        font-weight: bold;
+        margin: 0;
+    }
+    
+    h2 {
+        text-align: center;
+    }
+    
+    p {
+        font-size: 14px;
+        font-weight: 100;
+        line-height: 20px;
+        letter-spacing: 0.5px;
+        margin: 20px 0 30px;
+        colo
+    }
+    
+    span {
+        font-size: 12px;
+    }
+    
+    a {
+        color: #333;
+        font-size: 14px;
+        text-decoration: none;
+        margin: 15px 0;
+    }
+    
+
+    button {
+        border-radius: 50px;
+        border: 1px solid #c18cdb;
+        background-color: #c18cdb;
+        color: #fff;
+        font: bold 12px sans-serif;
+        padding: 12px 45px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: transform 80ms ease-in;
+    
+    }
+    
+    button:active {
+        transform: scale(0.95);
+    }
+    
+    button:focus {
+        outline: none;
+    }
+    
+    button.ghost {
+        background-color: transparent;
+        border-color: #FFFFFF;
+    }
+    
     form {
         background-color: #FFFFFF;
         display: flex;
         align-items: left;
-        justify-content: left;
+        justify-content: center;
         flex-direction: column;
-        padding: 20px 150px;
+        padding: 0 50px;
         height: 100%;
         text-align: left;
-        margin: 0 auto;
-        font-size: 18px; 
-        
     }
-
-.form input {
-    max-width: 100%; /* o ajusta según sea necesario */
-    /* Otros estilos... */
-}
+    
     input {
         background-color: #eee;
         border: none;
@@ -147,19 +217,16 @@ button.ghost {
         position: relative;
         overflow: hidden;
         width: 768px;
-        height: 100%;
+        max-width: 100%;
+        min-height: 480px;
     }
     
-    .form-container,
-    .overlay-panel {
-        overflow: hidden;
-        
-    }
     .form-container {
         position: absolute;
         top: 0;
+        height: 100%;
         transition: all 0.6s ease-in-out;
-        width: 50%;
+        overflow: hidden;
     }
     
     .sign-in-container {
@@ -169,7 +236,9 @@ button.ghost {
         overflow: hidden;
     }
     
-    
+    .container.right-panel-active .sign-in-container {
+        transform: translateX(100%);
+    }
     
     .sign-up-container {
         left: 0;
@@ -184,18 +253,7 @@ button.ghost {
         z-index: 5;
         animation: show 0.6s;
     }
-    ul {
-  list-style: none;
-
-        
-}   
-@media (max-width: 768px) {
-            /* Aquí puedes ajustar el diseño, tamaño de fuente, márgenes, etc. */
-            body {
-                font-size: 14px; /* Ejemplo de ajuste de tamaño de fuente para pantallas más pequeñas */
-                margin: 10px; /* Ejemplo de ajuste de márgenes */
-            }
-        }
+    
     @keyframes show {
         0%, 49.99% {
             opacity: 0;
@@ -217,27 +275,20 @@ button.ghost {
         overflow: hidden;
         transition: transform 0.6s ease-in-out;
         z-index: 100;
-        
     }
     
     .container.right-panel-active .overlay-container{
         transform: translateX(-100%);
     }
     
-    .overlay {
-        background: #FF416C;
-        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-        background: linear-gradient(to right, #FF4B2B, #FF416C);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 0 0;
+    .overlay-right {
+        right: 0;
+        transform: translateX(0);
         color: #FFFFFF;
-        position: relative;
-        left: -100%;
-        height: 100%;
-        width: 200%;
-          transform: translateX(0);
-        transition: transform 0.6s ease-in-out;
+        background: #eea6b7;
+        background: -webkit-linear-gradient(to right, #f12bff, #FF416C);
+        background: linear-gradient(to right, #2b80ff, #d72c54);
+        position: fixed;
     }
     
     .container.right-panel-active .overlay {
@@ -247,7 +298,7 @@ button.ghost {
     .overlay-panel {
         position: absolute;
         display: flex;
-        align-items: left;
+        align-items: center;
         justify-content: center;
         flex-direction: column;
         padding: 0 40px;
@@ -255,7 +306,9 @@ button.ghost {
         top: 0;
         height: 100%;
         width: 50%;
-;
+        transform: translateX(0);
+        transition: transform 0.6s ease-in-out;
+        overflow: hidden;
     }
     
     .overlay-left {
@@ -269,11 +322,6 @@ button.ghost {
     .overlay-right {
         right: 0;
         transform: translateX(0);
-        color: #FFFFFF;
-        background: #eea6b7;
-        background: -webkit-linear-gradient(to right, #f12bff, #FF416C);
-        background: linear-gradient(to right, #2b80ff, #d72c54);
-        position: fixed;
     }
     
     .container.right-panel-active .overlay-right {
@@ -296,34 +344,3 @@ button.ghost {
     }
     
 
-
-
-    
-
-    .form h1 {
-        margin-top: 100px; 
-    }
-    
-
-
-    .fixed-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #fff;
-        z-index: 999;
-        padding: 10px 0;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .fixed-header .header-title {
-        text-align: center;
-        margin: 0; /* Asegúrate de restablecer el margen por defecto */
-    }
-    
-    .form-container-wrapper {
-        padding-top: 70px; /* Ajusta según sea necesario para dar espacio al encabezado fijo */
-    }
-    
-    
