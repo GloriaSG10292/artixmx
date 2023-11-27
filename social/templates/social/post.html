@@ -5,6 +5,7 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+    <br>
     <button type="submit" class="post" id="">Publica tu obra</button>
     <a href="{% url 'feed' %}" class="btn btn-secondary">Cancelar</a>
 </form>

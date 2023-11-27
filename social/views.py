@@ -178,7 +178,7 @@ def post(request):
                     post.save()  # Guarda el post nuevamente con las palabras clave
             # Agregar impresión de depuración
             print("Resultado de palabras clave:", result)
-            messages.success(request, 'Post publicado correctamente')
+            messages.success(request, 'Obra publicada correctamente')
             return redirect('feed')
     else:
         # Si la solicitud no es POST, crea un formulario en blanco
@@ -298,7 +298,7 @@ def delete_post(request, post_id):
 
     if request.method == 'POST':
         post.delete()
-        messages.success(request, 'Post eliminado correctamente')
+        messages.success(request, 'Obra eliminada correctamente')
         return redirect('feed')
 
     return render(request, 'social/delete_post.html', {'post': post})

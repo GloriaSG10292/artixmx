@@ -36,7 +36,7 @@
             <div style="text-align: center;">
             {% if request.user.extendeddata.user_type == 'S' %}
               {% if request.user != post.user %}
-              <div style="text-align: left;">
+              
                 {% if post.user_liked %}
                   <form method="post" action="{% url 'unlike_post' post.id %}">
                     {% csrf_token %}
@@ -52,10 +52,10 @@
                     </button>
                   </form>
                 {% endif %}
-              </div>
               {% endif %}
             {% endif %}
-            </div>
+          </div>
+          
             
             
             {% with likes=post.likes.all %}
